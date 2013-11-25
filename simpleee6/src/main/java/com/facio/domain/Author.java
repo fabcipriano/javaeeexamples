@@ -1,5 +1,8 @@
 package com.facio.domain;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -72,4 +75,14 @@ public class Author {
 		this.books = books;
 	}
 
+	public void addBook(Book b) {
+		checkNotNull(b, "Book cannot be null");
+		
+		if (books == null) {
+			books = new HashSet<Book>();
+		}
+		
+		books.add(b);
+		b.setAuthor(this);
+	}
 }

@@ -15,11 +15,14 @@
 
 		<hibernate-core.version>4.2.7.Final</hibernate-core.version>
 		<mysql.version>5.1.27</mysql.version>
-		
+
 	</properties>
 
 	<dependencyManagement>
+
+
 		<dependencies>
+			<!-- JBoss BOM(Bill of Materials) -->
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-all-6.0</artifactId>
@@ -27,7 +30,18 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+			<!-- Arquillian BOM(Bill of Materials) -->
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.1.2.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
 		</dependencies>
+
+
 	</dependencyManagement>
 
 	<dependencies>
@@ -52,14 +66,6 @@
 			<version>${hibernate-core.version}</version>
 		</dependency>
 
-		<!-- Driver MySQL -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>test</scope>
-			<version>${mysql.version}</version>
-		</dependency>
-		
 		<!-- javax.ejb -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>
@@ -89,15 +95,35 @@
 		</dependency>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>15.0</version>
 		</dependency>
+
+		<!-- ##### Testes ##### -->
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Driver MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>test</scope>
+			<version>${mysql.version}</version>
+		</dependency>
+
+		<!-- Arquillian -->
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -122,30 +148,10 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${endorsed.dir}</outputDirectory>
-							<silent>true</silent>
-							<artifactItems>
-								<artifactItem>
-									<groupId>javax</groupId>
-									<artifactId>javaee-endorsed-api</artifactId>
-									<version>6.0</version>
-									<type>jar</type>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.2</version>
 			</plugin>
 		</plugins>
 	</build>
