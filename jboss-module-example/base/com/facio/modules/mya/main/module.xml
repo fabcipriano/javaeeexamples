@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.1" name="com.facio.modules.mya">
+
+    <main-class name="com.facio.modules.App"/>
+    
+    <properties>
+        <property name="my.property" value="foo"/>
+    </properties>
+    
+    <resources>
+        <resource-root path="mya-1.0-SNAPSHOT.jar"/>
+        <!-- Insert resources here -->
+    </resources>
+
+    <dependencies>
+        <!-- <module name="stax.stax-api"/> -->
+    </dependencies>
+</module>
